@@ -85,3 +85,15 @@ All the mentioned WPS attacks can be effortlessly executed using airgeddon or wi
 Airgeddon : https://github.com/v1s1t0r1sh3r3/airgeddon
 
 Wifite2 : https://github.com/derv82/wifite2
+
+## Resources
+
+Reaver : https://github.com/t6x/reaver-wps-fork-t6x
+
+Bully : https://github.com/aanarchyy/bully
+
+Airgeddon : https://github.com/v1s1t0r1sh3r3/airgeddon
+
+Wifite2 : https://github.com/derv82/wifite2
+
+Vulnerable router models : https://docs.google.com/spreadsheets/d/1tSlbqVQ59kGn8hgmwcPTHUECQ3o9YhXR91A_p7Nnj5Y
