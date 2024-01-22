@@ -8,9 +8,9 @@ description: CVE-2022–26923
 
 [Certifried (CVE-2022-26923)](https://research.ifcr.dk/certifried-active-directory-domain-privilege-escalation-cve-2022-26923-9e098fe298f4) is a vulnerability discovered by [Oliver Lyak](https://twitter.com/ly4k\_) on AD CS that lets a domain-joined user escalate its privileges in the domain.
 
-A domain user creating a computer account obtains the `Validated write to DNS host name`  and `Validated write to service principal name` permissions (among other rights). Therefore, the user is allowed to change the DNS host name (`dNSHostName`) and SPN (`servicePrincipalName`) attributes of the computer account.
+A domain user creating a computer account obtains the `Validated write to DNS host name` and `Validated write to service principal name` permissions (among other rights). Therefore, the user is allowed to change the DNS host name (`dNSHostName`) and SPN (`servicePrincipalName`) attributes of the computer account.
 
-Computer accounts (using the `Machine` template) use the value of the `dNSHostName` property for authentication. Attempting to change the `dNSHostName` to match another computer account raises a constraint error.&#x20;
+Computer accounts (using the `Machine` template) use the value of the `dNSHostName` property for authentication. Attempting to change the `dNSHostName` to match another computer account raises a constraint error.
 
 In fact, the moment the `dNSHostName` property is edited, the domain controller makes sure to update the existing SPNs of the account so that the "hostname" part of it is updated to the new DNS hostname. If the SPNs already exist for another account in Active Directory, the domain controllers raises the constraint violation.
 
@@ -55,7 +55,7 @@ _At the time of writing this recipe, June 2022, no Windows alternative has been 
 
 #### Creating a computer account
 
-The first step of the attack consists in creating a computer account ([Broken link](broken-reference "mention"), [Broken link](broken-reference "mention")), or have the write permission to the `dNSHostName` and `servicePrincipalName` attributes of another.
+The first step of the attack consists in creating a computer account ([broken-reference](../../../ad/movement/ad-cs/broken-reference/ "mention"), [broken-reference](../../../ad/movement/ad-cs/broken-reference/ "mention")), or have the write permission to the `dNSHostName` and `servicePrincipalName` attributes of another.
 
 #### `dNSHostName` and `servicePrincipalName` modification
 
@@ -77,8 +77,6 @@ bloodyAD -d $DOMAIN -u $USER -p $PASSWORD --host $DC_IP set object $COMPUTER_NAM
 bloodyAD -d $DOMAIN -u $USER -p $PASSWORD --host $DC_IP get object $COMPUTER_NAME --attr dnsHostName,serviceprincipalname
 ```
 {% endcode %}
-
-
 
 [Certipy](https://github.com/ly4k/Certipy) tool can also add a machine account and amend the `dNSHostName` property with the following command liner.
 
